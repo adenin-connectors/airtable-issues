@@ -7,7 +7,7 @@ module.exports = async (activity) => {
   try {
     api.initialize(activity);
 
-    const response = await api(`/appZ0X5zC5LFKvmMI/Bugs & Issues`);
+    const response = await api(`/Bugs & Issues`);
 
     if (!cfActivity.isResponseOk(activity, response)) {
       return;
@@ -15,7 +15,7 @@ module.exports = async (activity) => {
 
     let issuesStatus = {
       title: 'Open Bugs And Issues',
-      url: 'https://airtable.com/tblu6kDQTG7ylYYJK/',
+      url: 'https://airtable.com',
       urlLabel: 'All Bugs And Issues',
     };
 

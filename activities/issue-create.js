@@ -23,7 +23,7 @@ module.exports = async (activity) => {
       case "create":
       case "submit":
         const form = _action.form;
-        var response = await api.post("/appZ0X5zC5LFKvmMI/Bugs & Issues", {
+        var response = await api.post("/Bugs & Issues", {
           json: true,
           body: {
             fields: {

@@ -6,7 +6,7 @@ const api = require('./common/api');
 module.exports = async (activity) => {
   try {
     api.initialize(activity);
-    const response = await api('/appZ0X5zC5LFKvmMI/Team Members');
+    const response = await api(`/Team Members`);
 
     activity.Response.Data = {
       success: response && response.statusCode === 200

@@ -13,8 +13,8 @@ function api(path, opts) {
 
   opts = Object.assign({
     json: true,
-    token: _activity.Context.connector.custom1,
-    endpoint: 'https://api.airtable.com/v0',
+    token: _activity.Context.connector.custom2,
+    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}`,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
