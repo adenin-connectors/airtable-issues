@@ -1,13 +1,9 @@
 'use strict';
-
 const api = require('./common/api');
-const logger = require('@adenin/cf-logger');
-const cfActivity = require('@adenin/cf-activity');
 
 module.exports = async (activity) => {
 
   try {
-    api.initialize(activity);
     var data = {};
 
     // extract _action from Request
@@ -19,7 +15,6 @@ module.exports = async (activity) => {
     }
 
     switch (activity.Request.Path) {
-
       case "create":
       case "submit":
         const form = _action.form;
@@ -61,7 +56,7 @@ module.exports = async (activity) => {
 
   } catch (error) {
     // handle generic exception
-    cfActivity.handleError(activity, error);
+    Activity.handleError(error);
   }
 
   function getObjPath(obj, path) {

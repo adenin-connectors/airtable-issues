@@ -4,7 +4,6 @@ const isPlainObj = require('is-plain-obj');
 const HttpAgent = require('agentkeepalive');
 const HttpsAgent = HttpAgent.HttpsAgent;
 
-let _activity = null;
 
 function api(path, opts) {
   if (typeof path !== 'string') {
@@ -13,8 +12,8 @@ function api(path, opts) {
 
   opts = Object.assign({
     json: true,
-    token: _activity.Context.connector.custom2,
-    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}`,
+    token: Activity.Context.connector.custom2,
+    endpoint: `https://api.airtable.com/v0/${Activity.Context.connector.custom1}`,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
@@ -54,10 +53,6 @@ api.stream = (url, opts) => apigot(url, Object.assign({}, opts, {
   json: false,
   stream: true
 }));
-
-api.initialize = function (activity) {
-  _activity = activity;
-}
 
 for (const x of helpers) {
   const method = x.toUpperCase();
