@@ -2,7 +2,6 @@
   "Open Bugs And Issues": "Otvoreni Bagovi i Problemi",
   "All Bugs And Issues": "Svi Bagovi i Problemi",
   "You have no issues.": "Nemate dodeljenih problema",
-  "You have {0}": "Imate {0}",
-  " issues.": " problema.",
-  " issue.": "problem."
+  "You have {0} issues.": "Imate {0} problema.",
+  "You have 1 issue.": "Imate 1 problem."
 }

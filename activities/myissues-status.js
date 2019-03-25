@@ -18,7 +18,7 @@ module.exports = async (activity) => {
     if (issueCount != 0) {
       issuesStatus = {
         ...issuesStatus,
-        description: T("You have {0}", issueCount) + (issueCount > 1 ? T(" issues.") : T(" issue.")),
+        description: issueCount > 1 ? T("You have {0} issues.", issueCount) : T("You have 1 issue."),
         color: 'blue',
         value: response.body.length,
         actionable: true
