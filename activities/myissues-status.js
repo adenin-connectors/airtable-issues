@@ -9,8 +9,8 @@ module.exports = async (activity) => {
 
     let issuesStatus = {
       title: T('Open Bugs And Issues'),
-      url: 'https://airtable.com',
-      urlLabel: T('All Bugs And Issues'),
+      link: 'https://airtable.com',
+      linkLabel: T('All Bugs And Issues'),
     };
 
     let issueCount = response.body.records.length;
