@@ -10,14 +10,16 @@ module.exports = async (activity) => {
     if (activity.Request.Data && activity.Request.Data.args && activity.Request.Data.args.atAgentAction === 'nextpage') {
       offset = activity.Request.Data.args.providedOffset;
     }
-    const response = await api(`/Bugs & Issues?offset=${offset}&pageSize=${pageSize}`);
+
+    let searchParam = activity.Request.Query.query;
+    const response = await api(`/Bugs & Issues?offset=${offset}&pageSize=${pageSize}
+    &filterByFormula=FIND("${searchParam}",CONCATENATE(Name," - ", Description))`);
 
     if (Activity.isErrorResponse(response)) return;
 
-    // convert response to items[]
     activity.Response.Data = convertResponse(response);
-    if(response.body.offset){
-    activity.Response.Data.providedOffset = response.body.offset;
+    if (response.body.offset) {
+      activity.Response.Data.providedOffset = response.body.offset;
     }
   } catch (error) {
     Activity.handleError(error);
