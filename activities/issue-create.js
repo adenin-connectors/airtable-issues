@@ -1,5 +1,8 @@
 'use strict';
+const path = require('path');
 const api = require('./common/api');
+const yaml = require('js-yaml');
+const fs = require('fs');
 
 module.exports = async (activity) => {
 
@@ -23,11 +26,11 @@ module.exports = async (activity) => {
           body: {
             fields: {
               Name: form.subject,
-              Description: form.description
+              Description: form.description,
+              Priority: form.priority
             }
           }
         });
-
         var comment = "Issue created";
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
@@ -39,6 +42,11 @@ module.exports = async (activity) => {
         break;
 
       default:
+        var fname = __dirname + path.sep + "common" + path.sep + "issue-create.form";
+        var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
+
+        data.formSchema = schema;
+
         // initialize form subject with query parameter (if provided)
         if (activity.Request.Query && activity.Request.Query.query) {
           data = {

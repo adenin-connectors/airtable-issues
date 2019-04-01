@@ -16,8 +16,8 @@ module.exports = async (activity) => {
 
     // convert response to items[]
     activity.Response.Data = convertResponse(response);
-    if(response.body.offset){
-    activity.Response.Data.providedOffset = response.body.offset;
+    if (response.body.offset) {
+      activity.Response.Data.providedOffset = response.body.offset;
     }
   } catch (error) {
     Activity.handleError(error);
