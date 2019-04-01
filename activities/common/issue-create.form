@@ -16,10 +16,12 @@ properties:
     xtype: enum
     name: priority
     xvaluelist:
+      - value: Critical
+        title: Critical
       - value: High
         title: High
-      - value: Medium
-        title: Medium
+      - value: Normal
+        title: Normal
       - value: Low
         title: Low
     default: Medium

@@ -1,6 +1,6 @@
 'use strict';
-const path = require('path');
 const api = require('./common/api');
+const path = require('path');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
@@ -31,7 +31,7 @@ module.exports = async (activity) => {
             }
           }
         });
-        var comment = "Issue created";
+        var comment = T("Issue {0} created",response.body.id);
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
           response: {
@@ -45,6 +45,7 @@ module.exports = async (activity) => {
         var fname = __dirname + path.sep + "common" + path.sep + "issue-create.form";
         var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
 
+        data.title = T("Create Airtable Issue");
         data.formSchema = schema;
 
         // initialize form subject with query parameter (if provided)
@@ -55,6 +56,13 @@ module.exports = async (activity) => {
             }
           }
         }
+        data._actionList = [{
+          id: "create",
+          label: T("Create Issue"),
+          settings: {
+            actionType: "a"
+          }
+        }];
         break;
     }
 

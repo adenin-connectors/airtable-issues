@@ -3,5 +3,8 @@
   "All Bugs And Issues": "Svi Bagovi i Problemi",
   "You have no issues.": "Nemate dodeljenih problema",
   "You have {0} issues.": "Imate {0} problema.",
-  "You have 1 issue.": "Imate 1 problem."
+  "You have 1 issue.": "Imate 1 problem.",
+  "Issue {0} created": "Problem {0} je kreiran",
+  "Create Airtable Issue": "Dodaj Airtable Problem",
+  "Create Issue": "Kreiraj Problem"
 }
