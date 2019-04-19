@@ -21,6 +21,7 @@ module.exports = async (activity) => {
       case "create":
       case "submit":
         const form = _action.form;
+        api.initialize(activity);
         var response = await api.post("/Bugs & Issues", {
           json: true,
           body: {
@@ -31,7 +32,7 @@ module.exports = async (activity) => {
             }
           }
         });
-        var comment = T("Issue {0} created",response.body.id);
+        var comment = T(activity,"Issue {0} created",response.body.id);
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
           response: {
@@ -45,7 +46,7 @@ module.exports = async (activity) => {
         var fname = __dirname + path.sep + "common" + path.sep + "issue-create.form";
         var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
 
-        data.title = T("Create Airtable Issue");
+        data.title = T(activity,"Create Airtable Issue");
         data.formSchema = schema;
 
         // initialize form subject with query parameter (if provided)
@@ -58,7 +59,7 @@ module.exports = async (activity) => {
         }
         data._actionList = [{
           id: "create",
-          label: T("Create Issue"),
+          label: T(activity,"Create Issue"),
           settings: {
             actionType: "a"
           }
@@ -72,7 +73,7 @@ module.exports = async (activity) => {
 
   } catch (error) {
     // handle generic exception
-    Activity.handleError(error);
+    $.handleError(activity,error);
   }
 
   function getObjPath(obj, path) {

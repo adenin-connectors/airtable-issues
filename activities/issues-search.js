@@ -3,7 +3,7 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    var pagination = Activity.pagination();
+    var pagination = $.pagination(activity);
     let pageSize = parseInt(pagination.pageSize);
     let offset = 0;
 
@@ -11,18 +11,17 @@ module.exports = async (activity) => {
       offset = activity.Request.Data.args.providedOffset;
     }
 
+    api.initialize(activity);
     let searchParam = activity.Request.Query.query;
     const response = await api(`/Bugs & Issues?offset=${offset}&pageSize=${pageSize}
     &filterByFormula=FIND("${searchParam}",CONCATENATE(Name," - ", Description))`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     activity.Response.Data = convertResponse(response);
-    if (response.body.offset) {
-      activity.Response.Data.providedOffset = response.body.offset;
-    }
+    if (response.body.offset) activity.Response.Data.providedOffset = response.body.offset;
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity,error);
   }
 };
 /**maps response data to items */

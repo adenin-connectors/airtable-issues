@@ -3,24 +3,23 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    var pagination = Activity.pagination();
+    var pagination = $.pagination(activity);
     let pageSize = parseInt(pagination.pageSize);
     let offset = 0;
 
     if (activity.Request.Data && activity.Request.Data.args && activity.Request.Data.args.atAgentAction === 'nextpage') {
       offset = activity.Request.Data.args.providedOffset;
     }
+    api.initialize(activity);
     const response = await api(`/Bugs & Issues?offset=${offset}&pageSize=${pageSize}`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     // convert response to items[]
     activity.Response.Data = convertResponse(response);
-    if (response.body.offset) {
-      activity.Response.Data.providedOffset = response.body.offset;
-    }
+    if (response.body.offset) activity.Response.Data._nextpage = response.body.offset;
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity,error);
   }
 };
 /**maps response data to items */
