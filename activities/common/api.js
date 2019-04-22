@@ -13,7 +13,7 @@ function api(path, opts) {
   opts = Object.assign({
     json: true,
     token: _activity.Context.connector.custom2,
-    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}`,
+    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}/Bugs & Issues`,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
@@ -29,9 +29,7 @@ function api(path, opts) {
 
   const url = /^http(s)\:\/\/?/.test(path) && opts.endpoint ? path : opts.endpoint + path;
 
-  if (opts.stream) {
-    return got.stream(url, opts);
-  }
+  if (opts.stream) return got.stream(url, opts);
 
   return got(url, opts).catch((err) => {
     throw err;
@@ -58,8 +56,29 @@ api.stream = (url, opts) => got(url, Object.assign({}, opts, {
 
 for (const x of helpers) {
   const method = x.toUpperCase();
-  api[x] = (url, opts) => api(url, Object.assign({}, opts, {method}));
-  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, {method}));
+  api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
+  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
+}
+
+/**maps response data to items */
+api.convertResponse = function (response) {
+  let items = [];
+  let records = response.body.records;
+
+  for (let i = 0; i < records.length; i++) {
+    let raw = records[i];
+    let item = {
+      id: raw.id,
+      title: raw.fields.Name,
+      description: raw.fields.Description,
+      date: raw.fields["Opened Date & Time (GMT)"],
+      link: `https://airtable.com/${_activity.Context.connector.custom3}/${raw.id}`,
+      raw: raw
+    };
+    items.push(item);
+  }
+
+  return { items: items };
 }
 
 module.exports = api;

@@ -19,8 +19,11 @@ Custom1Label: Airtable AppID
 Custom1Hint: 'appXXXXXXXXXXXXXX'
 Custom2: required
 Custom2Label: API Key
-Custom3: hide
 Custom2Hint: ''
-Custom3Label: Custom Field 3
-Custom3Hint: ''
+Custom3: required
+Custom3Label: Bug & Issues Table Id
+Custom3Hint: 'tblxxxxxxxxxxxxxx'
+Custom4: hide
+Custom4Label: Table Name
+Custom4Hint: 'Bugs & Issues'
 Scopes:

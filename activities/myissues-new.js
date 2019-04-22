@@ -4,12 +4,14 @@ const api = require('./common/api');
 module.exports = async (activity) => {
   try {
     api.initialize(activity);
-    const response = await api(`?filterByFormula=NOT(OR(Status = "Complete", Status ="Won't fix", Status = "By design"))`);
+    var dateRange = $.dateRange(activity, "today");
+    const response = await api(`?filterByFormula=AND(IS_BEFORE(CREATED_TIME(),'${dateRange.startDate}'),
+        NOT(OR(Status = "Complete", Status ="Won't fix", Status = "By design")))`);
 
     if ($.isErrorResponse(activity, response)) return;
 
     let issuesStatus = {
-      title: T(activity, 'Open Bugs And Issues'),
+      title: T(activity, 'New Bugs And Issues'),
       link: `https://airtable.com/${activity.Context.connector.custom3}`,
       linkLabel: T(activity, 'All Bugs And Issues'),
     };

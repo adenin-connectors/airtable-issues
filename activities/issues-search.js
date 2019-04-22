@@ -13,27 +13,18 @@ module.exports = async (activity) => {
 
     api.initialize(activity);
     let searchParam = activity.Request.Query.query;
-    const response = await api(`/Bugs & Issues?offset=${offset}&pageSize=${pageSize}
-    &filterByFormula=FIND("${searchParam}",CONCATENATE(Name," - ", Description))`);
+    const response = await api(`?offset=${offset}&pageSize=${pageSize}
+        &filterByFormula=FIND("${searchParam}",CONCATENATE(Name," - ", Description))`);
 
     if ($.isErrorResponse(activity, response)) return;
 
-    activity.Response.Data = convertResponse(response);
+    activity.Response.Data = api.convertResponse(response);
+    activity.Response.Data.title = T(activity, 'My Issues');
+    activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom3}`;
+    activity.Response.Data.linkLabel = T(activity, 'Go to Airtable Issues');
+
     if (response.body.offset) activity.Response.Data.providedOffset = response.body.offset;
   } catch (error) {
-    $.handleError(activity,error);
+    $.handleError(activity, error);
   }
 };
-/**maps response data to items */
-function convertResponse(response) {
-  let items = [];
-  let records = response.body.records;
-
-  for (let i = 0; i < records.length; i++) {
-    let raw = records[i];
-    let item = { id: raw.id, title: raw.fields.Name, description: raw.fields.Description, link: 'https://airtable.com', raw: raw };
-    items.push(item);
-  }
-
-  return { items: items };
-}
