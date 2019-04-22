@@ -23,7 +23,7 @@ Custom2Hint: ''
 Custom3: required
 Custom3Label: Bug & Issues Table Id
 Custom3Hint: 'tblxxxxxxxxxxxxxx'
-Custom4: hide
+Custom4: optional
 Custom4Label: Table Name
 Custom4Hint: 'Bugs & Issues'
 Scopes:

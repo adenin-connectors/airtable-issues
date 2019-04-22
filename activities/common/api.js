@@ -10,10 +10,11 @@ function api(path, opts) {
     return Promise.reject(new TypeError(`Expected \`path\` to be a string, got ${typeof path}`));
   }
 
+  let customEndpoint = _activity.Context.connector.custom4 || "Bugs & Issues";
   opts = Object.assign({
     json: true,
     token: _activity.Context.connector.custom2,
-    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}/Bugs & Issues`,
+    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}/${customEndpoint}`,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
