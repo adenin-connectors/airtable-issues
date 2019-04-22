@@ -4,7 +4,7 @@ const api = require('./common/api');
 module.exports = async (activity) => {
   try {
     api.initialize(activity);
-    const response = await api(`?filterByFormula=NOT(OR(Status = "Complete", Status ="Won't fix", Status = "By design"))`);
+    const response = await api(`?filterByFormula=IF(Closed="",TRUE(),FALSE())`);
 
     if ($.isErrorResponse(activity, response)) return;
 

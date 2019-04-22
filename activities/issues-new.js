@@ -11,14 +11,14 @@ module.exports = async (activity) => {
       offset = activity.Request.Data.args.providedOffset;
     }
     api.initialize(activity);
-    const response = await api(`?filterByFormula=IF(Closed="",TRUE(),FALSE())
+    const response = await api(`?filterByFormula=IF(Status="",TRUE(),FALSE())
         &offset=${offset}&pageSize=${pageSize}`);
 
     if ($.isErrorResponse(activity, response)) return;
 
     // convert response to items[]
     activity.Response.Data = api.convertResponse(response);
-    activity.Response.Data.title = T(activity, 'My Issues');
+    activity.Response.Data.title = T(activity, 'New Issues');
     activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom3}`;
     activity.Response.Data.linkLabel = T(activity, 'Go to Airtable Issues');
 

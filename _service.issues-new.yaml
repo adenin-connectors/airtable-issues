@@ -1,4 +1,4 @@
-ServiceName: 'myissues-new'
+ServiceName: 'issues-new'
 InterfaceName: 'status'
 Description: 'My New Issues'
 APIDoc: ''
