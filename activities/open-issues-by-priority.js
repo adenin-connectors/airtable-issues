@@ -40,6 +40,9 @@ function mapResponseToChartData(activity, response) {
   datasets.push({ label: T(activity, 'Number Of Issues'), data });
 
   let chartData = {
+    title: T(activity, 'Open Issues by Priority'),
+    link: `https://airtable.com/${activity.Context.connector.custom3}`,
+    linkLabel: T(activity, 'Go to Airtable Issues'),
     chart: {
       configuration: {
         data: {},
