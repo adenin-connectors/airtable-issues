@@ -1,6 +1,6 @@
 ServiceName: 'issues-new'
 InterfaceName: 'status'
-Description: 'My New Issues'
+Description: 'New Issues List'
 APIDoc: ''
 Interfaces: ''
 RequiredScopes: ''
