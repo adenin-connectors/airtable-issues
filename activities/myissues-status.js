@@ -8,31 +8,31 @@ module.exports = async (activity) => {
 
     if ($.isErrorResponse(activity, response)) return;
 
-    let issuesStatus = {
+    let status = {
       title: T(activity, 'Open Bugs And Issues'),
       link: `https://airtable.com/${activity.Context.connector.custom3}`,
       linkLabel: T(activity, 'All Bugs And Issues'),
     };
 
-    let issueCount = response.body.records.length;
+    let value = response.body.records.length;
 
-    if (issueCount != 0) {
-      issuesStatus = {
-        ...issuesStatus,
-        description: issueCount > 1 ? T(activity, "You have {0} issues.", issueCount) : T(activity, "You have 1 issue."),
+    if (value != 0) {
+      status = {
+        ...status,
+        description: value > 1 ? T(activity, "You have {0} issues.", value) : T(activity, "You have 1 issue."),
         color: 'blue',
-        value: issueCount,
+        value: value,
         actionable: true
       };
     } else {
-      issuesStatus = {
-        ...issuesStatus,
+      status = {
+        ...status,
         description: T(activity, 'You have no issues.'),
         actionable: false
       };
     }
 
-    activity.Response.Data = issuesStatus;
+    activity.Response.Data = status;
   } catch (error) {
     $.handleError(activity, error);
   }
