@@ -53,8 +53,7 @@ function mapResponseToChartData(activity, response) {
           }
         }
       },
-      template: 'pie',
-      palette: 'office.Office6'
+      template: 'pie'
     },
     _settings: {}
   };
