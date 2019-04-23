@@ -16,13 +16,38 @@ module.exports = async (activity) => {
 
     if ($.isErrorResponse(activity, response)) return;
 
+    // provide status information
+    let status = {
+      title: T(activity, 'New Issues'),
+      link: `https://airtable.com/${activity.Context.connector.custom3}`,
+      linkLabel: T(activity, 'Go to Airtable'),
+    };
+
+    let value = response.body.records.length;
+
+    if (value != 0) {
+      status = {
+        ...status,
+        description: value > 1 ? T(activity, "{0} new issues", value) : T(activity, "1 new issue"),
+        xcolor: 'red',
+        value: value,
+        actionable: true
+      };
+    } else {
+      status = {
+        ...status,
+        description: T(activity, 'No new issues.'),
+        actionable: false
+      };
+    }
+
+    activity.Response.Data = status;
+
     // convert response to items[]
     activity.Response.Data.items = api.convertResponse(response);
-    activity.Response.Data.title = T(activity, 'New Issues');
-    activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom3}`;
-    activity.Response.Data.linkLabel = T(activity, 'Go to Airtable Issues');
-
+ 
     if (response.body.offset) activity.Response.Data._nextpage = response.body.offset;
+    
   } catch (error) {
     $.handleError(activity, error);
   }
