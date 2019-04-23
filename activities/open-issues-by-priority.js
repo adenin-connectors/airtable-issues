@@ -53,7 +53,7 @@ function mapResponseToChartData(activity, response) {
           }
         }
       },
-      template: 'bar',
+      template: 'pie',
       palette: 'office.Office6'
     },
     _settings: {}
