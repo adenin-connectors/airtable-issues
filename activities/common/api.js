@@ -79,7 +79,7 @@ api.convertResponse = function (response) {
     items.push(item);
   }
 
-  return { items: items };
+  return items;
 }
 
 module.exports = api;
