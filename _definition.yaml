@@ -8,7 +8,7 @@ ClientSecret: hide
 AccessCodeServiceUrl: hide
 AccessTokenServiceUrl: hide
 Personalized: !!bool true
-ApiKey: hide
+ApiKey: required
 ServiceUrl: hide
 ServiceUrlHint: ''
 XML2JSON: hide
@@ -18,12 +18,9 @@ Custom1: required
 Custom1Label: Airtable AppID
 Custom1Hint: 'appXXXXXXXXXXXXXX'
 Custom2: required
-Custom2Label: API Key
-Custom2Hint: ''
-Custom3: required
-Custom3Label: Bug & Issues Table Id
-Custom3Hint: 'tblxxxxxxxxxxxxxx'
-Custom4: optional
-Custom4Label: Table Name
-Custom4Hint: 'Bugs & Issues'
+Custom2Label: Bug & Issues Table Id
+Custom2Hint: 'tblxxxxxxxxxxxxxx'
+Custom3: optional
+Custom3Label: Table Name
+Custom3Hint: 'Bugs & Issues'
 Scopes:

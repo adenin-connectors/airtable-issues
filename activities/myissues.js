@@ -19,7 +19,7 @@ module.exports = async (activity) => {
     // convert response to items[]
     activity.Response.Data = api.convertResponse(response);
     activity.Response.Data.title = T(activity, 'My Issues');
-    activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom3}`;
+    activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom2}`;
     activity.Response.Data.linkLabel = T(activity, 'Go to Airtable Issues');
 
     if (response.body.offset) activity.Response.Data._nextpage = response.body.offset;

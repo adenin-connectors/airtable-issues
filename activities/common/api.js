@@ -10,10 +10,10 @@ function api(path, opts) {
     return Promise.reject(new TypeError(`Expected \`path\` to be a string, got ${typeof path}`));
   }
 
-  let customEndpoint = _activity.Context.connector.custom4 || "Bugs & Issues";
+  let customEndpoint = _activity.Context.connector.custom3 || "Bugs & Issues";
   opts = Object.assign({
     json: true,
-    token: _activity.Context.connector.custom2,
+    token: _activity.Context.connector.apikey,
     endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}/${customEndpoint}`,
     agent: {
       http: new HttpAgent(),
@@ -73,7 +73,7 @@ api.convertResponse = function (response) {
       title: raw.fields.Name,
       description: raw.fields.Description,
       date: raw.fields["Opened Date & Time (GMT)"],
-      link: `https://airtable.com/${_activity.Context.connector.custom3}/${raw.id}`,
+      link: `https://airtable.com/${_activity.Context.connector.custom2}/${raw.id}`,
       raw: raw
     };
     items.push(item);

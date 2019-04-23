@@ -41,7 +41,7 @@ function mapResponseToChartData(activity, response) {
 
   let chartData = {
     title: T(activity, 'Open Issues by Priority'),
-    link: `https://airtable.com/${activity.Context.connector.custom3}`,
+    link: `https://airtable.com/${activity.Context.connector.custom2}`,
     linkLabel: T(activity, 'Go to Airtable Issues'),
     chart: {
       configuration: {
