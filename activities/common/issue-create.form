@@ -24,7 +24,7 @@ properties:
         title: Normal
       - value: Low
         title: Low
-    default: Medium
+    default: Normal
 rules:
   - caption: 'Rule #1'
     position: !!int 1

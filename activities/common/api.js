@@ -4,15 +4,18 @@ const got = require('got');
 const HttpAgent = require('agentkeepalive');
 const HttpsAgent = HttpAgent.HttpsAgent;
 
+let _activity = null;
+
 function api(path, opts) {
   if (typeof path !== 'string') {
     return Promise.reject(new TypeError(`Expected \`path\` to be a string, got ${typeof path}`));
   }
 
+  let customEndpoint = _activity.Context.connector.custom3 || "Bugs & Issues";
   opts = Object.assign({
     json: true,
-    token: Activity.Context.connector.custom2,
-    endpoint: `https://api.airtable.com/v0/${Activity.Context.connector.custom1}`,
+    token: _activity.Context.connector.apikey,
+    endpoint: `https://api.airtable.com/v0/${_activity.Context.connector.custom1}/${customEndpoint}`,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
@@ -44,6 +47,10 @@ const helpers = [
   'delete'
 ];
 
+api.initialize = (activity) => {
+  _activity = activity;
+};
+
 api.stream = (url, opts) => got(url, Object.assign({}, opts, {
   json: false,
   stream: true
@@ -51,8 +58,29 @@ api.stream = (url, opts) => got(url, Object.assign({}, opts, {
 
 for (const x of helpers) {
   const method = x.toUpperCase();
-  api[x] = (url, opts) => api(url, Object.assign({}, opts, {method}));
-  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, {method}));
+  api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
+  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
+}
+
+/**maps response data to items */
+api.convertResponse = function (response) {
+  let items = [];
+  let records = response.body.records;
+
+  for (let i = 0; i < records.length; i++) {
+    let raw = records[i];
+    let item = {
+      id: raw.id,
+      title: raw.fields.Name,
+      description: raw.fields.Description,
+      date: raw.fields["Opened Date & Time (GMT)"],
+      link: `https://airtable.com/${_activity.Context.connector.custom2}/${raw.id}`,
+      raw: raw
+    };
+    items.push(item);
+  }
+
+  return items;
 }
 
 module.exports = api;

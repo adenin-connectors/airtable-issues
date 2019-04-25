@@ -1,0 +1,8 @@
+ServiceName: 'issues-status'
+InterfaceName: 'status'
+Description: 'Issues Status'
+APIDoc: ''
+Interfaces: ''
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''

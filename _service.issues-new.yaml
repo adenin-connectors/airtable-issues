@@ -1,0 +1,8 @@
+ServiceName: 'issues-new'
+InterfaceName: 'status'
+Description: 'New Issues List'
+APIDoc: ''
+Interfaces: ''
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''

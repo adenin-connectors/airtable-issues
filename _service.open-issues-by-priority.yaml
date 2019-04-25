@@ -1,0 +1,8 @@
+ServiceName: 'open-issues-by-priority'
+InterfaceName: 'chart'
+Description: 'Open Issues By Priority'
+APIDoc: ''
+Interfaces: ''
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''

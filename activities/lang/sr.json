@@ -6,5 +6,12 @@
   "You have 1 issue.": "Imate 1 problem.",
   "Issue {0} created": "Problem {0} je kreiran",
   "Create Airtable Issue": "Dodaj Airtable Problem",
-  "Create Issue": "Kreiraj Problem"
+  "Create Issue": "Kreiraj Problem",
+  "My Issues": "Moji Problemi",
+  "Go to Airtable Issues": "Otvorite Aritable Probleme",
+  "New Bugs And Issues": "Novi Bagovi i Problemi",
+  "Number Of Issues": "Broj Problema",
+  "Issue Metrics By Priority": "Broj Problema Po Prioritetu",
+  "New Issues" :"Novi Problemi",
+  "Open Issues by Priority" : "Otvoreni Problemi po Prioritetu."
 }
