@@ -19,7 +19,7 @@ module.exports = async (activity) => {
     // provide status information
     let status = {
       title: T(activity, 'New Issues'),
-      link: `https://airtable.com/${activity.Context.connector.custom3}`,
+      link: `https://airtable.com/${activity.Context.connector.custom2}`,
       linkLabel: T(activity, 'Go to Airtable'),
     };
 
