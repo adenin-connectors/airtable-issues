@@ -1,8 +1,7 @@
-ServiceName: 'myissues'
 InterfaceName: 'items'
 Description: 'My Issues'
 APIDoc: ''
-Interfaces: 'search,pagination'
+Interfaces: 'status,daterange,pagination'
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''

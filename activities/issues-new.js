@@ -44,7 +44,7 @@ module.exports = async (activity) => {
     activity.Response.Data = status;
 
     // convert response to items[]
-    activity.Response.Data.items = api.convertResponse(response);
+    activity.Response.Data.items = api.convertResponse(response.body.records);
     activity.Response.Data.title = T(activity, 'New Issues');
     activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom2}`;
     activity.Response.Data.linkLabel = T(activity, 'Go to Airtable Issues');
