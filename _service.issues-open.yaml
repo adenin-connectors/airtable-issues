@@ -1,8 +1,7 @@
-ServiceName: 'issues-status'
 InterfaceName: 'status'
-Description: 'Issues Status'
+Description: 'Open Issues'
 APIDoc: ''
-Interfaces: ''
+Interfaces: 'items,daterange,pagination'
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''

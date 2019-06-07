@@ -1,8 +1,0 @@
-ServiceName: 'issues-search'
-InterfaceName: 'items'
-Description: 'Search Issues'
-APIDoc: ''
-Interfaces: 'search,pagination'
-RequiredScopes: ''
-AdditionalParameters:
-Method: ''

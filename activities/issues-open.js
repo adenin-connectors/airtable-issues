@@ -3,14 +3,14 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    let allEvents = [];
+    let allIssues = [];
     api.initialize(activity);
     const dateRange = $.dateRange(activity);
     const response = await api(`?filterByFormula=AND(IF(Closed="",TRUE(),FALSE()),AND(IS_AFTER(CREATED_TIME(),'${dateRange.startDate}'),
     IS_BEFORE(CREATED_TIME(),'${dateRange.endDate}')))&pageSize=100`);
 
     if ($.isErrorResponse(activity, response)) return;
-    allEvents.push(...response.body.records);
+    allIssues.push(...response.body.records);
 
     let nextPageToken = response.body.offset;
 
@@ -18,18 +18,18 @@ module.exports = async (activity) => {
       const nextPage = await api(`?filterByFormula=AND(IF(Closed="",TRUE(),FALSE()),AND(IS_AFTER(CREATED_TIME(),'${dateRange.startDate}'),
       IS_BEFORE(CREATED_TIME(),'${dateRange.endDate}'))))&offset=${nextPageToken}&pageSize=100`);
       if ($.isErrorResponse(activity, nextPage)) return;
-      allEvents.push(...nextPage.body.records);
+      allIssues.push(...nextPage.body.records);
       nextPageToken = nextPage.body.offset;
     }
 
-    let value = allEvents.length;
+    let value = allIssues.length;
     let pagination = $.pagination(activity);
-    let pagiantedItems = paginateItems(allEvents, pagination);
+    let pagiantedItems = paginateItems(allIssues, pagination);
 
     activity.Response.Data.items = api.convertResponse(pagiantedItems);
-    activity.Response.Data.title = T(activity, 'My Issues');
+    activity.Response.Data.title = T(activity, 'Open Issues');
     activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom2}`;
-    activity.Response.Data.linkLabel = T(activity, 'Go to Airtable Issues');
+    activity.Response.Data.linkLabel = T(activity, 'All Issues');
     activity.Response.Data.actionable = value > 0;
     activity.Response.Data.value = value;
 

@@ -1,7 +1,0 @@
-InterfaceName: 'items'
-Description: 'My Issues'
-APIDoc: ''
-Interfaces: 'status,daterange,pagination'
-RequiredScopes: ''
-AdditionalParameters:
-Method: ''

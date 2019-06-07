@@ -1,17 +1,14 @@
 {
-  "Open Bugs And Issues": "Otvoreni Bagovi i Problemi",
-  "All Bugs And Issues": "Svi Bagovi i Problemi",
+  "My Issues": "Moji Problemi",
+  "All Issues": "Svi Bagovi i Problemi",
+  "Open Issues" : "Otvoreni Problemi",
   "You have no issues.": "Nemate dodeljenih problema",
   "You have {0} issues.": "Imate {0} problema.",
   "You have 1 issue.": "Imate 1 problem.",
   "Issue {0} created": "Problem {0} je kreiran",
   "Create Airtable Issue": "Dodaj Airtable Problem",
   "Create Issue": "Kreiraj Problem",
-  "My Issues": "Moji Problemi",
-  "Go to Airtable Issues": "Otvorite Aritable Probleme",
-  "New Bugs And Issues": "Novi Bagovi i Problemi",
   "Number Of Issues": "Broj Problema",
   "Issue Metrics By Priority": "Broj Problema Po Prioritetu",
-  "New Issues" :"Novi Problemi",
   "Open Issues by Priority" : "Otvoreni Problemi po Prioritetu."
 }
