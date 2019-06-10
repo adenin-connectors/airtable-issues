@@ -1,8 +1,7 @@
-ServiceName: 'issue-create'
 InterfaceName: 'create'
-Description: 'Create Airtable Issue'
+Description: 'Create Issue'
 APIDoc: ''
-Interfaces: 'search,pagination'
+Interfaces: ''
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''
