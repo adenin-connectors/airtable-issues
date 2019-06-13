@@ -1,4 +1,3 @@
-ServiceName: 'open-issues-by-priority'
 InterfaceName: 'chart'
 Description: 'Open Issues By Priority'
 APIDoc: ''

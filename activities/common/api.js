@@ -63,9 +63,8 @@ for (const x of helpers) {
 }
 
 /**maps response data to items */
-api.convertResponse = function (response) {
+api.convertResponse = function (records) {
   let items = [];
-  let records = response.body.records;
 
   for (let i = 0; i < records.length; i++) {
     let raw = records[i];
