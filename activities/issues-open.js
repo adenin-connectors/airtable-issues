@@ -7,7 +7,7 @@ module.exports = async (activity) => {
     api.initialize(activity);
     const dateRange = $.dateRange(activity);
     const response = await api(`?filterByFormula=AND(IF(Closed="",TRUE(),FALSE()),AND(IS_AFTER(CREATED_TIME(),'${dateRange.startDate}'),
-    IS_BEFORE(CREATED_TIME(),'${dateRange.endDate}')))&pageSize=100`);
+    IS_BEFORE(CREATED_TIME(),'${dateRange.endDate}')))&pageSize=100&sort[0][field]=Opened Date&sort[0][direction]=desc`);
 
     if ($.isErrorResponse(activity, response)) return;
     allIssues.push(...response.body.records);
@@ -16,7 +16,7 @@ module.exports = async (activity) => {
 
     while (nextPageToken) {
       const nextPage = await api(`?filterByFormula=AND(IF(Closed="",TRUE(),FALSE()),AND(IS_AFTER(CREATED_TIME(),'${dateRange.startDate}'),
-      IS_BEFORE(CREATED_TIME(),'${dateRange.endDate}'))))&offset=${nextPageToken}&pageSize=100`);
+      IS_BEFORE(CREATED_TIME(),'${dateRange.endDate}'))))&offset=${nextPageToken}&pageSize=100&sort[0][field]=Opened Date&sort[0][direction]=desc`);
       if ($.isErrorResponse(activity, nextPage)) return;
       allIssues.push(...nextPage.body.records);
       nextPageToken = nextPage.body.offset;
@@ -24,7 +24,7 @@ module.exports = async (activity) => {
 
     let value = allIssues.length;
     let pagination = $.pagination(activity);
-    let pagiantedItems = paginateItems(allIssues, pagination);
+    let pagiantedItems = api.paginateItems(allIssues, pagination);
 
     activity.Response.Data.items = api.convertResponse(pagiantedItems);
     activity.Response.Data.title = T(activity, 'Open Issues');
@@ -35,6 +35,7 @@ module.exports = async (activity) => {
 
     if (value > 0) {
       activity.Response.Data.color = 'blue';
+      activity.Response.Data.date = activity.Response.Data.items[0].date; // items are alrady sorted by date descending in api request
       activity.Response.Data.description = value > 1 ? T(activity, "You have {0} issues.", value)
         : T(activity, "You have 1 issue.");
     } else {
@@ -44,20 +45,3 @@ module.exports = async (activity) => {
     $.handleError(activity, error);
   }
 };
-
-//** paginate items[] based on provided pagination */
-function paginateItems(items, pagination) {
-  let pagiantedItems = [];
-  const pageSize = parseInt(pagination.pageSize);
-  const offset = (parseInt(pagination.page) - 1) * pageSize;
-
-  if (offset > items.length) return pagiantedItems;
-
-  for (let i = offset; i < offset + pageSize; i++) {
-    if (i >= items.length) {
-      break;
-    }
-    pagiantedItems.push(items[i]);
-  }
-  return pagiantedItems;
-}
