@@ -71,7 +71,7 @@ api.convertResponse = function (records) {
       id: raw.id,
       title: raw.fields.Name,
       description: raw.fields.Description,
-      date: raw.fields["Opened Date & Time (GMT)"],
+      date: raw.createdTime,
       link: `https://airtable.com/${_activity.Context.connector.custom2}/${raw.id}`,
       raw: raw
     };

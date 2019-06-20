@@ -27,19 +27,21 @@ module.exports = async (activity) => {
     let pagiantedItems = api.paginateItems(allIssues, pagination);
 
     activity.Response.Data.items = api.convertResponse(pagiantedItems);
-    activity.Response.Data.title = T(activity, 'All Issues');
-    activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom2}`;
-    activity.Response.Data.linkLabel = T(activity, 'All Issues');
-    activity.Response.Data.actionable = value > 0;
-    activity.Response.Data.value = value;
+    if (parseInt(pagination.page) == 1) {
+      activity.Response.Data.title = T(activity, 'All Issues');
+      activity.Response.Data.link = `https://airtable.com/${activity.Context.connector.custom2}`;
+      activity.Response.Data.linkLabel = T(activity, 'All Issues');
+      activity.Response.Data.actionable = value > 0;
+      activity.Response.Data.value = value;
 
-    if (value > 0) {
-      activity.Response.Data.color = 'blue';
-      activity.Response.Data.date = activity.Response.Data.items[0].date; // items are alrady sorted by date descending in api request
-      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} issues.", value)
-        : T(activity, "You have 1 issue.");
-    } else {
-      activity.Response.Data.description = T(activity, 'You have no issues.');
+      if (value > 0) {
+        activity.Response.Data.color = 'blue';
+        activity.Response.Data.date = allIssues[0].createdTime; // items are alrady sorted by date descending in api request
+        activity.Response.Data.description = value > 1 ? T(activity, "You have {0} issues.", value)
+          : T(activity, "You have 1 issue.");
+      } else {
+        activity.Response.Data.description = T(activity, 'You have no issues.');
+      }
     }
   } catch (error) {
     $.handleError(activity, error);
