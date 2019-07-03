@@ -72,7 +72,7 @@ api.convertResponse = function (records) {
       id: raw.id,
       title: raw.fields.Name,
       description: raw.fields.Description,
-      date: raw.fields["Opened Date & Time (GMT)"],
+      date: raw.createdTime,
       link: `https://airtable.com/${_activity.Context.connector.custom2}/${raw.id}`,
       raw: raw
     };
@@ -80,6 +80,23 @@ api.convertResponse = function (records) {
   }
 
   return items;
-}
+};
+
+//** paginate items[] based on provided pagination */
+api.paginateItems = function (items, pagination) {
+  let pagiantedItems = [];
+  const pageSize = parseInt(pagination.pageSize);
+  const offset = (parseInt(pagination.page) - 1) * pageSize;
+
+  if (offset > items.length) return pagiantedItems;
+
+  for (let i = offset; i < offset + pageSize; i++) {
+    if (i >= items.length) {
+      break;
+    }
+    pagiantedItems.push(items[i]);
+  }
+  return pagiantedItems;
+};
 
 module.exports = api;
